@@ -27,4 +27,13 @@ module Enumerable
     end
     arr
   end
+
+  def my_all?
+    bool = true
+
+    my_each do |item|
+      bool = false unless yield item
+    end
+    bool
+  end
 end
