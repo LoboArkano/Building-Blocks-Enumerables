@@ -37,6 +37,15 @@ module Enumerable
     bool
   end
 
+  def my_any?
+    bool = false
+
+    my_each do |item|
+      bool = true if yield item
+    end
+    bool
+  end
+
   def my_none?
     bool = true
 
