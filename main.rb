@@ -54,4 +54,13 @@ module Enumerable
     end
     bool
   end
+
+  def my_count
+    count = 0
+
+    my_each do |item|
+      count += 1 if yield item
+    end
+    count
+  end
 end
