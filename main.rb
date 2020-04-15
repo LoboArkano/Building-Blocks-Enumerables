@@ -72,4 +72,23 @@ module Enumerable
     end
     arr
   end
+
+  def my_inject(memo = 0)
+    arr = to_a
+
+    if memo.zero?
+      memo = arr[0]
+      arr.shift
+    end
+
+    my_each do |item|
+      memo = yield memo, item
+    end
+    memo
+  end
+end
+
+def multiply_els(arr)
+  result = arr.my_inject { |product, val| product * val }
+  result
 end
