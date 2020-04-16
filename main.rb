@@ -25,12 +25,17 @@ module Enumerable
   end
 
   def my_select
-    arr = []
+    return to_enum(:my_each) unless block_given?
 
-    my_each do |item|
-      arr.push(item) if yield item
+    selected = []
+    arr = self if respond_to?(:to_a)
+    arr = *self if respond_to?(:range)
+    arr = to_a if respond_to?(:to_h)
+
+    arr.my_each do |item|
+      selected.push(item) if yield item
     end
-    arr
+    selected
   end
 
   def my_all?
