@@ -12,6 +12,8 @@ module Enumerable
   end
 
   def my_each_with_index
+    return to_enum(:my_each) unless block_given?
+
     item = 0
     index = 0
 
