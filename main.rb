@@ -1,9 +1,12 @@
 module Enumerable
   def my_each
-    index = 0
+    return to_enum(:my_each) unless block_given?
 
+    index = 0
+    arr = to_a if is_a? Hash
+    arr = self if is_a? Array
     while index < size
-      yield self[index]
+      yield arr[index]
       index += 1
     end
   end
