@@ -76,11 +76,20 @@ module Enumerable
     bool
   end
 
-  def my_none?
+  def my_none?(arg = nil)
     bool = true
-
-    my_each do |item|
-      bool = false if yield item
+    if !block_given?
+      if arg.nil?
+        bool = false if include?(true)
+      elsif arg.respond_to?(:to_i)
+        my_each { |item| bool = false if item == arg }
+      elsif arg.is_a?(Regexp)
+        my_each { |item| bool = false if item.match(arg) }
+      elsif arg.respond_to?(:class)
+        my_each { |item| bool = false if item.instance_of? arg }
+      end
+    else
+      my_each { |item| bool = false if yield item }
     end
     bool
   end
