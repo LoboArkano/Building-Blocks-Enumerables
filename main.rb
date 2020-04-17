@@ -1,5 +1,6 @@
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/ModuleLength
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -110,6 +111,8 @@ module Enumerable
   end
 
   def my_map
+    return to_enum(:my_each) unless block_given?
+
     arr = []
 
     my_each do |item|
@@ -137,3 +140,6 @@ def multiply_els(arr)
   result = arr.my_inject { |product, val| product * val }
   result
 end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/ModuleLength
