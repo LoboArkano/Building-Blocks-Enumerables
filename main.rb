@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -38,11 +40,20 @@ module Enumerable
     selected
   end
 
-  def my_all?
+  def my_all?(arg = nil)
     bool = true
-
-    my_each do |item|
-      bool = false unless yield item
+    if !block_given?
+      if arg.nil?
+        bool = false if include?(false) || include?(nil)
+      elsif arg.respond_to?(:to_i)
+        my_each { |item| bool = false unless item == arg }
+      elsif arg.is_a?(Regexp)
+        my_each { |item| bool = false unless item.match(arg) }
+      elsif arg.respond_to?(:class)
+        my_each { |item| bool = false unless item.instance_of? arg }
+      end
+    else
+      my_each { |item| bool = false unless yield item }
     end
     bool
   end
