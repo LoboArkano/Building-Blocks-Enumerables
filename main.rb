@@ -94,11 +94,17 @@ module Enumerable
     bool
   end
 
-  def my_count
+  def my_count(arg = nil)
     count = 0
 
-    my_each do |item|
-      count += 1 if yield item
+    if !block_given?
+      if arg.nil?
+        count = length
+      else
+        my_each { |item| count += 1 if item == arg }
+      end
+    else
+      my_each { |item| count += 1 if yield item }
     end
     count
   end
