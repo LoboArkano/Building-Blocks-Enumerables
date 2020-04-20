@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/MethodLength
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -32,7 +33,7 @@ module Enumerable
 
     selected = []
     arr = self if respond_to?(:to_a)
-    arr = *self if respond_to?(:range)
+    arr = *self if is_a?(Range)
     arr = to_a if respond_to?(:to_h)
 
     arr.my_each do |item|
@@ -121,16 +122,36 @@ module Enumerable
     arr
   end
 
-  def my_inject(memo = 0)
-    arr = to_a
+  def my_inject(memo = 0, operation = nil)
+    arr = self if respond_to?(:to_a)
+    arr = to_a if is_a?(Range)
 
-    if memo.zero?
-      memo = arr[0]
-      arr.shift
+    if memo.is_a?(Symbol)
+      operation = memo
+      memo = 0
     end
 
-    my_each do |item|
-      memo = yield memo, item
+    if operation.is_a?(Symbol)
+      case operation
+      when :+
+        memo = arr.my_inject(memo) { |acum, item| acum + item }
+      when :-
+        memo = arr.my_inject(memo) { |acum, item| acum - item }
+      when :*
+        memo = arr.my_inject(memo) { |acum, item| acum * item }
+      when :/
+        memo = arr.my_inject(memo) { |acum, item| acum / item }
+      else
+        puts 'Invalid operator'
+      end
+    else
+      if memo.zero?
+        memo = arr[0]
+        arr.shift
+      end
+      arr.my_each do |item|
+        memo = yield memo, item
+      end
     end
     memo
   end
@@ -143,3 +164,4 @@ end
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/MethodLength
