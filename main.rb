@@ -7,8 +7,9 @@ module Enumerable
     return to_enum(:my_each) unless block_given?
 
     index = 0
-    arr = to_a if respond_to?(:to_h)
     arr = self if respond_to?(:to_a)
+    arr = to_a if respond_to?(:to_hash)
+
     while index < size
       yield arr[index]
       index += 1
@@ -34,7 +35,7 @@ module Enumerable
     selected = []
     arr = self if respond_to?(:to_a)
     arr = *self if is_a?(Range)
-    arr = to_a if respond_to?(:to_h)
+    arr = to_a if respond_to?(:to_hash)
 
     arr.my_each do |item|
       selected.push(item) if yield item
