@@ -1,5 +1,6 @@
 # Building-Blocks-Enumerables
-The objective of this project is to rebuild Enumerable methods and achieve the same results as the originals.
+The objective of this project is to rebuild Ruby Enumerable methods and achieve the same results as the originals.
+All the methods are inside in the module Enumerable, so it's easy to test the methods with IRB.
 
 ## Built With
 
@@ -7,7 +8,9 @@ The objective of this project is to rebuild Enumerable methods and achieve the s
 
 ## Getting Started
 
-If you have Ruby installed, you can use the next command to run the code: ruby main.rb
+If you have Ruby installed, you can use the next command to open IRB on your terminal: irb
+To make the methods enable, use this command: require './main.rb'
+Now you can use the methods like this: [1, 2, 3, 4, 5].my_select { |num| num.even? }
 
 
 ### Prerequisites
