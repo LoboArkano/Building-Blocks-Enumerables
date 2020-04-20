@@ -148,9 +148,11 @@ module Enumerable
     else
       if memo.zero?
         memo = arr[0]
-        arr.shift
+        arr2 = arr.slice(1, arr.length)
+      else
+        arr2 = arr
       end
-      arr.my_each do |item|
+      arr2.my_each do |item|
         memo = yield memo, item
       end
     end
