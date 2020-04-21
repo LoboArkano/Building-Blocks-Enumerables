@@ -9,7 +9,9 @@ All the methods are inside in the module Enumerable, so it's easy to test the me
 ## Getting Started
 
 If you have Ruby installed, you can use the next command to open IRB on your terminal: irb
+
 To make the methods enable, use this command: require './main.rb'
+
 Now you can use the methods like this: [1, 2, 3, 4, 5].my_select { |num| num.even? }
 
 
