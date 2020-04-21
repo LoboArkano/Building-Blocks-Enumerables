@@ -7,8 +7,8 @@ module Enumerable
     return to_enum(:my_each) unless block_given?
 
     index = 0
-    arr = self if respond_to?(:to_a)
-    arr = to_a if respond_to?(:to_hash)
+    arr = dup if respond_to?(:to_a)
+    arr = to_a.dup if respond_to?(:to_hash)
 
     while index < size
       yield arr[index]
@@ -33,9 +33,9 @@ module Enumerable
     return to_enum(:my_each) unless block_given?
 
     selected = []
-    arr = self if respond_to?(:to_a)
-    arr = *self if is_a?(Range)
-    arr = to_a if respond_to?(:to_hash)
+    arr = dup if respond_to?(:to_a)
+    arr = to_a.dup if is_a?(Range)
+    arr = to_a.dup if respond_to?(:to_hash)
 
     arr.my_each do |item|
       selected.push(item) if yield item
@@ -124,8 +124,8 @@ module Enumerable
   end
 
   def my_inject(memo = 0, operation = nil)
-    arr = self if respond_to?(:to_a)
-    arr = to_a if is_a?(Range)
+    arr = dup if respond_to?(:to_a)
+    arr = to_a.dup if is_a?(Range)
 
     if memo.is_a?(Symbol)
       operation = memo
@@ -148,11 +148,9 @@ module Enumerable
     else
       if memo.zero?
         memo = arr[0]
-        arr2 = arr.slice(1, arr.length)
-      else
-        arr2 = arr
+        arr.shift
       end
-      arr2.my_each do |item|
+      arr.my_each do |item|
         memo = yield memo, item
       end
     end
