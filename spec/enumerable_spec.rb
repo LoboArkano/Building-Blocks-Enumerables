@@ -1,3 +1,4 @@
+# rubocop:disable Layout/LineLength
 require './main.rb'
 
 describe Enumerable do
@@ -16,4 +17,17 @@ describe Enumerable do
       expect { my_hash.my_each { |key, value| puts "k: #{key}, v: #{value}" } }.to output("k: min, v: 2\nk: max, v: 5\n").to_stdout
     end
   end
+  describe '#my_each_with_index' do
+    let(:arr_num) { [11, 22, 31, 224, 44] }
+    let(:arr_str) { %w[cat dog wombat] }
+    it 'Puts the index of the numbers less than 30' do
+      expect { arr_num.my_each_with_index { |item, index| puts "index: #{index} for #{item}" if item < 30 } }.to output("index: 0 for 11\nindex: 1 for 22\n").to_stdout
+    end
+    it 'Insert key with an index as a value' do
+      my_hash = {}
+      arr_str.my_each_with_index { |item, index| my_hash[item] = index }
+      expect(my_hash).to include('cat' => 0, 'dog' => 1, 'wombat' => 2)
+    end
+  end
 end
+# rubocop:enable Layout/LineLength
