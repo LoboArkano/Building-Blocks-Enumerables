@@ -49,7 +49,7 @@ describe Enumerable do
   let(:arr_mix) { ['ant', 'bear', 8] }
   let(:arr_eight) { [8, 8, 8] }
   let(:arr_n_mix) { [8, 7, 6] }
-  describe '#all?' do
+  describe '#my_all?' do
     it 'Return false if at least one boolean is false' do
       expect(arr_bool.my_all?).to eql(false)
     end
@@ -63,13 +63,30 @@ describe Enumerable do
       expect(arr_eight.my_all?(8)).to eql(true)
     end
     it 'Return false if at least one item is different from eight' do
-      expect(arr_height.my_all?(8)).to eql(true)
+      expect(arr_eight.my_all?(8)).to eql(true)
     end
     it "Return false if at least one item don't have the 'b' letter" do
       expect(arr_string.my_all?(/b/)).to eql(false)
     end
     it 'Return true if the length items of all items is greater or equal than 3' do
       expect(arr_string.my_all? { |word| word.length >= 3 }).to eql(true)
+    end
+  end
+  describe '#my_any?' do
+    it 'Return true if at least one boolean is true' do
+      expect(arr_bool.my_any?).to eql(true)
+    end
+    it 'Return true if at least one item is a string' do
+      expect(arr_mix.my_any?(String)).to eql(true)
+    end
+    it 'Return true if at least one item is eight' do
+      expect(arr_eight.my_any?(8)).to eql(true)
+    end
+    it "Return true if at least one item have the 'b' letter" do
+      expect(arr_string.my_any?(/b/)).to eql(true)
+    end
+    it 'Return true if at least one length item is greater or equal than 3' do
+      expect(arr_string.my_any? { |word| word.length >= 3 }).to eql(true)
     end
   end
 end
