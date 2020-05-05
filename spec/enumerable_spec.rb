@@ -29,5 +29,19 @@ describe Enumerable do
       expect(my_hash).to include('cat' => 0, 'dog' => 1, 'wombat' => 2)
     end
   end
+  describe '#my_select' do
+    let(:arr_num) { [1, 2, 3, 4, 5] }
+    let(:range) { (1..10) }
+    let(:arr_sym) { %i[foo bar] }
+    it 'Select the even numbers' do
+      expect(arr_num.my_select { |num| num <= 3 }).to include(1, 2, 3)
+    end
+    it 'Select the multiples of three' do
+      expect(range.my_select { |i| (i % 3).zero? }).to include(3, 6, 9)
+    end
+    it 'Select the foo symbol' do
+      expect(arr_sym.my_select { |x| x == :foo }).to eql([:foo])
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
