@@ -43,5 +43,34 @@ describe Enumerable do
       expect(arr_sym.my_select { |x| x == :foo }).to eql([:foo])
     end
   end
+
+  let(:arr_bool) { [true, true, false] }
+  let(:arr_string) { %w[ant bear bat] }
+  let(:arr_mix) { ['ant', 'bear', 8] }
+  let(:arr_eight) { [8, 8, 8] }
+  let(:arr_n_mix) { [8, 7, 6] }
+  describe '#all?' do
+    it 'Return false if at least one boolean is false' do
+      expect(arr_bool.my_all?).to eql(false)
+    end
+    it 'Return true if all items are string' do
+      expect(arr_string.my_all?(String)).to eql(true)
+    end
+    it 'Return false if at least one item is not a string' do
+      expect(arr_mix.my_all?(String)).to eql(false)
+    end
+    it 'Return true if all items are eight' do
+      expect(arr_eight.my_all?(8)).to eql(true)
+    end
+    it 'Return false if at least one item is different from eight' do
+      expect(arr_height.my_all?(8)).to eql(true)
+    end
+    it "Return false if at least one item don't have the 'b' letter" do
+      expect(arr_string.my_all?(/b/)).to eql(false)
+    end
+    it 'Return true if the length items of all items is greater or equal than 3' do
+      expect(arr_string.my_all? { |word| word.length >= 3 }).to eql(true)
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
