@@ -129,5 +129,23 @@ describe Enumerable do
       expect([1, 2, 3, 4].my_map { 'cat' }).to eql(%w[cat cat cat cat])
     end
   end
+  describe '#my_inject' do
+    let(:num_range) { (5..10) }
+    it 'Return the addition of numbers using a symbol' do
+      expect(num_range.my_inject(:+)).to eql(45)
+    end
+    it 'Return the addition of numbers using a block' do
+      expect(num_range.my_inject { |sum, n| sum + n }).to eql(45)
+    end
+    it 'Return the multiplication of numbers using two arguments' do
+      expect(num_range.my_inject(1, :*)).to eql(151_200)
+    end
+    it 'Return the multiplication of numbers using an argument and a block' do
+      expect(num_range.my_inject(1) { |product, n| product * n }).to eql(151_200)
+    end
+    it 'Return the longest string' do
+      expect(%w[cat sheep bear].my_inject { |memo, w| memo.length > w.length ? memo : w }).to eql('sheep')
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
