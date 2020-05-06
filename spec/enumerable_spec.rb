@@ -121,5 +121,13 @@ describe Enumerable do
       expect(arr_num.my_count { |x| (x % 3).zero? }).to eql(3)
     end
   end
+  describe '#my_map' do
+    it 'Return the array of numbers multiply by himself' do
+      expect([1, 2, 3, 4].my_map { |i| i * i }).to eql([1, 4, 9, 16])
+    end
+    it 'Return an array with four items' do
+      expect([1, 2, 3, 4].my_map { 'cat' }).to eql(%w[cat cat cat cat])
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
