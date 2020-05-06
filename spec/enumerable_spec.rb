@@ -63,7 +63,7 @@ describe Enumerable do
       expect(arr_eight.my_all?(8)).to eql(true)
     end
     it 'Return false if at least one item is different from eight' do
-      expect(arr_eight.my_all?(8)).to eql(true)
+      expect(arr_n_mix.my_all?(8)).to eql(false)
     end
     it "Return false if at least one item don't have the 'b' letter" do
       expect(arr_string.my_all?(/b/)).to eql(false)
