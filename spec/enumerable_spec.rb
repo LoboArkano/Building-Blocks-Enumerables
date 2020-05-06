@@ -109,5 +109,17 @@ describe Enumerable do
       expect(arr_string.my_none? { |word| word.length > 3 }).to eql(false)
     end
   end
+  describe '#my_count' do
+    let(:arr_num) { [1, 2, 4, 2, 5, 7, 9, 3, 5, 6, 1] }
+    it 'Return the number of elements' do
+      expect(arr_num.my_count).to eql(11)
+    end
+    it 'Returns how many 2 are there' do
+      expect(arr_num.my_count(2)).to eql(2)
+    end
+    it 'Returns how many numbers are divisible for 3' do
+      expect(arr_num.my_count { |x| (x % 3).zero? }).to eql(3)
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
