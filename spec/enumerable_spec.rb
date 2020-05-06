@@ -89,5 +89,25 @@ describe Enumerable do
       expect(arr_string.my_any? { |word| word.length >= 3 }).to eql(true)
     end
   end
+  describe '#my_none?' do
+    it 'Return false if there is one true boolean' do
+      expect(arr_bool.my_none?).to eql(false)
+    end
+    it 'Return false if there is one string item' do
+      expect(arr_string.my_none?(String)).to eql(false)
+    end
+    it 'Return false if there is one integer item' do
+      expect(arr_mix.my_none?(Integer)).to eql(false)
+    end
+    it 'Return true if there is not a nine integer' do
+      expect(arr_n_mix.my_none?(9)).to eql(true)
+    end
+    it "Return true if there is not an item with an 'u' letter" do
+      expect(arr_string.my_none?(/u/)).to eql(true)
+    end
+    it 'Return false if there is one item with a length greater than 3' do
+      expect(arr_string.my_none? { |word| word.length > 3 }).to eql(false)
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
