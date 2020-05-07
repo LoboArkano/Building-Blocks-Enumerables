@@ -31,6 +31,9 @@ describe Enumerable do
       arr_str.my_each_with_index { |item, index| my_hash[item] = index }
       expect(my_hash).to include('cat' => 0, 'dog' => 1, 'wombat' => 2)
     end
+    it 'Reurn enumerator when no block is given' do
+      expect(arr_num.my_each_with_index).to be_an Enumerator
+    end
   end
   describe '#my_select' do
     let(:arr_num) { [1, 2, 3, 4, 5] }
