@@ -48,6 +48,9 @@ describe Enumerable do
     it 'Select the foo symbol' do
       expect(arr_sym.my_select { |x| x == :foo }).to eql([:foo])
     end
+    it 'Reurn enumerator when no block is given' do
+      expect(arr_num.my_select).to be_an Enumerator
+    end
   end
 
   let(:arr_bool) { [true, true, false] }
