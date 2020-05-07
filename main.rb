@@ -17,7 +17,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_each_with_index) unless block_given?
 
     item = 0
     index = 0
@@ -30,7 +30,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_select) unless block_given?
 
     selected = []
     arr = dup if respond_to?(:to_a)
@@ -113,7 +113,7 @@ module Enumerable
   end
 
   def my_map
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_map) unless block_given?
 
     arr = []
 
