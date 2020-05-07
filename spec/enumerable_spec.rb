@@ -1,5 +1,5 @@
 # rubocop:disable Layout/LineLength
-require './main.rb'
+require_relative '../main.rb'
 
 describe Enumerable do
   describe '#my_each' do
