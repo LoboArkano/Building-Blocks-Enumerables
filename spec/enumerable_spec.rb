@@ -16,6 +16,9 @@ describe Enumerable do
     it 'Puts all the keys and his values' do
       expect { my_hash.my_each { |key, value| puts "k: #{key}, v: #{value}" } }.to output("k: min, v: 2\nk: max, v: 5\n").to_stdout
     end
+    it 'Reurn enumerator when no block is given' do
+      expect(arr_num.my_each).to be_an Enumerator
+    end
   end
   describe '#my_each_with_index' do
     let(:arr_num) { [11, 22, 31, 224, 44] }
