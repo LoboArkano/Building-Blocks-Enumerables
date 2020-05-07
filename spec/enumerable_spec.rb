@@ -16,7 +16,7 @@ describe Enumerable do
     it 'Puts all the keys and his values' do
       expect { my_hash.my_each { |key, value| puts "k: #{key}, v: #{value}" } }.to output("k: min, v: 2\nk: max, v: 5\n").to_stdout
     end
-    it 'Reurn enumerator when no block is given' do
+    it 'Return enumerator when no block is given' do
       expect(arr_num.my_each).to be_an Enumerator
     end
   end
@@ -31,7 +31,7 @@ describe Enumerable do
       arr_str.my_each_with_index { |item, index| my_hash[item] = index }
       expect(my_hash).to include('cat' => 0, 'dog' => 1, 'wombat' => 2)
     end
-    it 'Reurn enumerator when no block is given' do
+    it 'Return enumerator when no block is given' do
       expect(arr_num.my_each_with_index).to be_an Enumerator
     end
   end
@@ -48,7 +48,7 @@ describe Enumerable do
     it 'Select the foo symbol' do
       expect(arr_sym.my_select { |x| x == :foo }).to eql([:foo])
     end
-    it 'Reurn enumerator when no block is given' do
+    it 'Return enumerator when no block is given' do
       expect(arr_num.my_select).to be_an Enumerator
     end
   end
@@ -131,11 +131,15 @@ describe Enumerable do
     end
   end
   describe '#my_map' do
+    let(:arr_num) { [1, 2, 3, 4] }
     it 'Return the array of numbers multiply by himself' do
-      expect([1, 2, 3, 4].my_map { |i| i * i }).to eql([1, 4, 9, 16])
+      expect(arr_num.my_map { |i| i * i }).to eql([1, 4, 9, 16])
     end
     it 'Return an array with four items' do
-      expect([1, 2, 3, 4].my_map { 'cat' }).to eql(%w[cat cat cat cat])
+      expect(arr_num.my_map { 'cat' }).to eql(%w[cat cat cat cat])
+    end
+    it 'Return enumerator when no block is given' do
+      expect(arr_num.my_map).to be_an Enumerator
     end
   end
   describe '#my_inject' do
